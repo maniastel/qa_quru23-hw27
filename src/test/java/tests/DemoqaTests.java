@@ -2,6 +2,7 @@ package tests;
 
 import api.AuthApi;
 import api.BooksApi;
+import components.CookiePopup;
 import helpers.WithLogin;
 import models.LoginResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +17,7 @@ public class DemoqaTests extends TestBase {
     @WithLogin
     @DisplayName("Удаление книги из коллекции пользователя")
     void DeleteProductFromCollectionTest () {
+        CookiePopup cookie = new CookiePopup();
         LoginResponse authResponse = step("Авторизуем пользователя", () ->
                 AuthApi.authResponse());
 
@@ -25,7 +27,10 @@ public class DemoqaTests extends TestBase {
 
         step("Открываем страницу Profile", () ->
                 open("/profile")
-                );
+        );
+
+        step("Принимаем соглашение о куках", () ->
+                cookie.consentCookiePopup());
 
         step("Нажимаем на кнопку удаления книги из коллекции", () ->
                 $("#delete-record-undefined").click()
