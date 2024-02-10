@@ -1,6 +1,7 @@
 package helpers;
 
 import api.AuthApi;
+import components.CookiePopup;
 import models.LoginResponse;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -12,8 +13,9 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public class SessionExtension implements BeforeEachCallback {
     @Override
     public void beforeEach(ExtensionContext context) {
-
+        CookiePopup cookie = new CookiePopup();
         open("/favicon.ico");
+        cookie.consentCookiePopup();
 
         LoginResponse authResponse = AuthApi.authResponse();
         getWebDriver().manage().addCookie(new Cookie("userID", authResponse.getUserId()));
