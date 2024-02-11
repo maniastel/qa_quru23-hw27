@@ -4,7 +4,6 @@ package api;
 import models.LoginRequest;
 import models.LoginResponse;
 
-import static data.ApiEndpoints.LOGIN;
 import static data.UserData.PASSWORD;
 import static data.UserData.USER_NAME;
 import static io.restassured.RestAssured.given;
@@ -20,7 +19,7 @@ public class AuthApi {
                 given(request)
                         .body(userData)
                         .when()
-                        .post(LOGIN)
+                        .post("/Account/v1/Login")
                         .then()
                         .log().all()
                         .spec(successLoginResponse200)

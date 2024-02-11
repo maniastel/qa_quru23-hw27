@@ -25,7 +25,6 @@ public class TestBase {
         Configuration.pageLoadStrategy = "eager";
         Configuration.browser = config.getBrowser();
         Configuration.browserVersion = config.getBrowserVersion();
-        Configuration.timeout = 3000;
 
         if (!"".equals(config.getRemoteWebDriver())) {
             Configuration.remote = config.getRemoteWebDriver();

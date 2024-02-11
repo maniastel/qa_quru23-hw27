@@ -24,6 +24,12 @@ public class Specification {
             .log(BODY)
             .build();
 
+    public static ResponseSpecification successDeleteBooksResponse204 = new ResponseSpecBuilder()
+            .expectStatusCode(204)
+            .log(STATUS)
+            .log(BODY)
+            .build();
+
     public static ResponseSpecification successAddBooksResponse201 = new ResponseSpecBuilder()
             .expectStatusCode(201)
             .log(STATUS)

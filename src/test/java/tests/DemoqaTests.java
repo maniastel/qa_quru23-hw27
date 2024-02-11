@@ -21,6 +21,9 @@ public class DemoqaTests extends TestBase {
         LoginResponse authResponse = step("Авторизуем пользователя", () ->
                 AuthApi.authResponse());
 
+        step("Очищаем список коллекции пользователя", () ->
+                BooksApi.deleteBooks(authResponse.getToken(), authResponse.getUserId()));
+
         step("Добавляем книгу в коллекцию", () ->
                 BooksApi.addBooks(authResponse.getToken(), authResponse.getUserId())
         );

@@ -1,17 +1,26 @@
 package api;
 
-import models.AddListOfBooksRequest;
-import models.AddListOfBooksResponse;
-import models.ListOfIsbns;
+import models.*;
 
 import java.util.ArrayList;
 
-import static data.ApiEndpoints.BOOKS;
 import static io.restassured.RestAssured.given;
-import static specs.Specification.request;
-import static specs.Specification.successAddBooksResponse201;
+import static specs.Specification.*;
 
 public class BooksApi {
+
+    public static void deleteBooks (String token, String userId) {
+
+        given(request)
+                .header("Authorization", "Bearer " + token)
+                .queryParam("UserId", userId)
+                .when()
+                .delete("/BookStore/v1/Books")
+                .then()
+                .log().all()
+                .spec(successDeleteBooksResponse204);
+    }
+
     public static AddListOfBooksResponse addBooks (String token, String userId) {
         ArrayList books = new ArrayList<>();
         books.add(new ListOfIsbns("9781449325862"));
@@ -23,7 +32,7 @@ public class BooksApi {
                 .header("Authorization", "Bearer " + token)
                 .body(dataBook)
                 .when()
-                .post(BOOKS)
+                .post("/BookStore/v1/Books")
                 .then()
                 .log().all()
                 .spec(successAddBooksResponse201)
