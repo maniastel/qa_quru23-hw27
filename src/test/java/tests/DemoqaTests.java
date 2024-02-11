@@ -28,12 +28,13 @@ public class DemoqaTests extends TestBase {
                 BooksApi.addBooks(authResponse.getToken(), authResponse.getUserId())
         );
 
+        step("Принимаем соглашение о куках", () ->
+                cookie.consentCookiePopup()
+        );
+
         step("Открываем страницу Profile", () ->
                 open("/profile")
         );
-
-        step("Принимаем соглашение о куках", () ->
-                cookie.consentCookiePopup());
 
         step("Нажимаем на кнопку удаления книги из коллекции", () ->
                 $("#delete-record-undefined").click()
@@ -44,7 +45,7 @@ public class DemoqaTests extends TestBase {
         );
 
         step("Закрываем информационное окно", () ->
-                confirm()
+                switchTo().alert().accept()
         );
 
         step("Проверяем удаление книги из коллекции", () ->
